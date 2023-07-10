@@ -1,0 +1,45 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'com.android.lint'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+lintOptions {
+    htmlReport true
+    htmlOutput file("lint-report.html")
+    textReport true
+    absolutePaths false
+    ignoreTestSources true
+}
+
+dependencies {
+    //lint
+    // 官方提供的Lint相关API，并不稳定，每次AGP升级都可能会更改，且并不是向下兼容的
+    compileOnly "com.android.tools.lint:lint-api:$lintVersion"
+    // 目前Android中内置的lint检测规则
+    compileOnly "com.android.tools.lint:lint-checks:$lintVersion"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    //test
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "com.android.tools.lint:lint:$lintVersion"
+    testImplementation "com.android.tools.lint:lint-tests:$lintVersion"
+}
+
+//jar {
+//    manifest {
+//        attributes("Lint-Registry": "com.mozhimen.study_lint_lib.CustomIssueRegistry")
+//    }
+//}
+//
+//configurations {
+//    lintJarOutput
+//}
+//dependencies {
+//    lintJarOutput files(jar)
+//}
